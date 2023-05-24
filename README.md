@@ -22,3 +22,18 @@ function CounterApp() {
 
 document.body.appendChild(CounterApp());
 ```
+
+Todo app:
+```js
+import { $, listOf } from './v.js';
+
+function TodosApp() {
+  const todos = listOf();
+
+  return $('div', {}, [
+    $('button', {
+      textContent: ''
+    })
+  ]);
+}
+```
