@@ -39,11 +39,24 @@ function TodosApp() {
       }
     }),
     $('button', {
-      textContent: 'New Todo'
+      textContent: 'New Todo',
+      onclick() {
+        if(todoContent.value !== '') {
+          todos.add(todoContent.value);
+          todoContent.value = '';
+        }
+      }
     }),
     $('div', {}, todos.bindEach((value, key) => {
-      return $('p', { textContent: value });
+      return $('p', {
+        textContent: value,
+        onclick() {
+          todos.remove(key);
+        }
+      });
     }))
   ]);
 }
+
+document.body.appendChild(TodosApp());
 ```
