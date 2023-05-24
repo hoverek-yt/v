@@ -5,7 +5,7 @@ A simple and lightweight library for Vanilla JavaScript, allowing you to create 
 
 Simple counter:
 ```js
-import { valueOf } from './v.js';
+import { $, valueOf } from './v.js';
 
 function CounterApp() {
   const counter = valueOf(0);
