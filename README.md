@@ -62,4 +62,19 @@ function TodosApp() {
 document.body.appendChild(TodosApp());
 ```
 
+Text nodes as children:
+```js
+import { $, valueOf } from './v.js';
+
+function Counter() {
+  const counter = valueOf(0);
+  
+  return $('button', {
+    onclick() {
+      ++counter.value;
+    }
+  }, [ 'Clicked: ', counter.bind(), ' times' ]);
+}
+```
+
 Future versions will fix bugs and improve performance.
