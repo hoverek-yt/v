@@ -3,5 +3,5 @@ A simple and lightweight library for Vanilla JavaScript, allowing you to create 
 
 # Basics
 `js
-  var x = 10;
+var x = 10;
 `
