@@ -66,7 +66,7 @@ export class State {
         return new Binding(this, setter);
     }
 }
-export function valueOf(value) {
+export const valueOf = (value) => {
     return new State(value);
 }
 
@@ -126,6 +126,10 @@ export class ListState extends State {
         this.value.set(key, value);
     }
 
+    get(key) {
+        this._value.get(key);
+    }
+
     remove(key) {
         let mapKeys = [];
         for (const pair of this.value) {
@@ -155,12 +159,12 @@ export class ListState extends State {
         return new ListBinding(this, each);
     }
 }
-export function listOf(...values) {
+export const listOf = (...values) => {
     return new ListState(...values);
 }
 
 
-export function $(name = 'div', props = {}, children = []) {
+export const $ = (name = 'div', props = {}, children = []) => {
     const el = document.createElement(name);
 
     // property value binding
@@ -169,13 +173,7 @@ export function $(name = 'div', props = {}, children = []) {
             el[prop] = props[prop];
         }
         else if (props[prop] instanceof Binding) {
-            if (props[prop].hasStateElement(el)) {
-                props[prop].addSelfToElement(el);
-            } else {
-                props[prop]._state._bindings.set(el, []);
-                props[prop]._prop = prop;
-                props[prop].addSelfToElement(el);
-            }
+            bindToEl(props[prop], el, prop)
         }
     }
 
@@ -186,13 +184,29 @@ export function $(name = 'div', props = {}, children = []) {
         children.requestViewUpdate();
     } else {
         for (const child of children) {
-            if (typeof child === 'string') {
-                el.appendChild(document.createTextNode(child));
-            } else if (child instanceof HTMLElement) {
+
+            if (child instanceof HTMLElement) {
                 el.appendChild(child);
+            } else {
+                const tn = document.createTextNode(child);
+                el.appendChild(tn);
+
+                if (child instanceof Binding) {
+                    bindToEl(child, tn, 'textContent');
+                }
             }
         }
     }
 
     return el;
+}
+
+const bindToEl = (binding, el, prop) => {
+    if (binding.hasStateElement(el)) {
+        binding.addSelfToElement(el);
+    } else {
+        binding._state._bindings.set(el, []);
+        binding._prop = prop;
+        binding.addSelfToElement(el);
+    }
 }
