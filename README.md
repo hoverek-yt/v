@@ -8,6 +8,8 @@ Simple counter:
 import { valueOf } from './v.js';
 
 function CounterApp() {
+  const counter = valueOf(0);
+
   return $('div', {}, [
     
   ]);
