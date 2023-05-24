@@ -41,7 +41,7 @@ function TodosApp() {
     $('button', {
       textContent: 'New Todo',
       onclick() {
-        if(todoContent.value !== '') {
+        if(todoContent.value.trim() !== '') {
           todos.add(todoContent.value);
           todoContent.value = '';
         }
