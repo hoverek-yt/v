@@ -25,15 +25,25 @@ document.body.appendChild(CounterApp());
 
 Todo app:
 ```js
-import { $, listOf } from './v.js';
+import { $, listOf, valueOf } from './v.js';
 
 function TodosApp() {
   const todos = listOf();
+  const todoContent = valueOf('');
 
   return $('div', {}, [
+    $('input', {
+      value: todoContent.bind(),
+      onchange(e) {
+        todoContent.value = e.target.value;
+      }
+    }),
     $('button', {
-      textContent: ''
-    })
+      textContent: 'New Todo'
+    }),
+    $('div', {}, todos.bindEach((value, key) => {
+      return $('p', { textContent: value });
+    }))
   ]);
 }
 ```
