@@ -1,3 +1,5 @@
+![v-logo](https://github.com/hoverek-yt/v/assets/89012686/628a2918-62e7-4e2c-90a9-3596e07379ff)
+
 # v
 A simple and lightweight library for Vanilla JavaScript, allowing you to create a reactive UI.
 
