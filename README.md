@@ -60,3 +60,5 @@ function TodosApp() {
 
 document.body.appendChild(TodosApp());
 ```
+
+Future versions will fix bugs and improve performance.
