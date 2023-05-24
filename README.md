@@ -19,4 +19,6 @@ function CounterApp() {
     })
   ]);
 }
+
+document.body.appendChild(CounterApp());
 ```
