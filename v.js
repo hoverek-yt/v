@@ -164,8 +164,33 @@ export const listOf = (...values) => {
 }
 
 
-export const $ = (name = 'div', props = {}, children = []) => {
-    const el = document.createElement(name);
+export const $ = (tag = 'div', props = { classList: [] }, children = []) => {
+    const compiledTag = tag.split('.');
+    let tagName = compiledTag[0];
+    compiledTag.splice(0, 1);
+
+    if (tagName.includes('#')) {
+        const tagContent = tagName.split('#');
+
+        if (tagContent[0] === '') {
+            tagName = 'div';
+        } else {
+            tagName = tagContent[0];
+            props.id = tagContent[1];
+        }
+    }
+
+    props.className = props.className ?? [];
+
+    for (const className of compiledTag) {
+        if (!(className.includes('#'))) {
+            props.className.push(className);
+        }
+    }
+
+    props.className = props.className.join(' ');
+
+    const el = document.createElement(tagName);
 
     // property value binding
     for (const prop in props) {
