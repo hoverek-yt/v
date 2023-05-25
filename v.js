@@ -164,7 +164,7 @@ export const listOf = (...values) => {
 }
 
 
-export const $ = (tag = 'div', props = { classList: [] }, children = []) => {
+export const $ = (tag = 'div', props = {}, children = []) => {
     const compiledTag = tag.split('.');
     let tagName = compiledTag[0];
     compiledTag.splice(0, 1);
