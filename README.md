@@ -5,7 +5,7 @@ A simple and lightweight library for Vanilla JavaScript, allowing you to create 
 # Features
 - ♾️ Declarative syntax ( 😎 **_functional components!_** )
 - ⚛️ Reactive state management based on nice Binding ( **_valueOf_** )
-- 👌 Powerful reactive lists ( **_listOf_** based on **Map** )
+- 👌 Powerful reactive lists ( **_listOf_** based on [**Map**](https://github.com/hoverek-yt/v/wiki/function-listOf) )
 - 💅 Bindable styles:
 ```js
 style: { color: myValue.bind() } // changing myValue will affect the css property 'color'
