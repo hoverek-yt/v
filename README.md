@@ -86,4 +86,4 @@ function Counter() {
 }
 ```
 
-Future versions will fix bugs and improve performance.
+_Future versions will fix bugs and improve performance_
