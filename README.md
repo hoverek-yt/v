@@ -2,6 +2,15 @@
 # v
 A simple and lightweight library for Vanilla JavaScript, allowing you to create a reactive UI.
 
+# Features
+- ♾️ Declarative syntax ( 😎 **_functional components!_** )
+- ⚛️ Reactive state management based on nice Binding ( **_valueOf_** )
+- 👌 Powerful reactive lists ( **_listOf_** based on **Map** )
+- 💅 Bindable styles:
+```js
+style: { color: myValue.bind() } // changing myValue will affect the css property 'color'
+```
+
 # Basics
 
 Simple counter:
