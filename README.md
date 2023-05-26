@@ -87,4 +87,8 @@ function Counter() {
 }
 ```
 
+# Todo
+- ❔ SVG Elements support
+- Maybe more...
+
 _Future versions will fix bugs and improve performance_
