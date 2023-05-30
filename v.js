@@ -214,6 +214,16 @@ export class ListState extends State {
     }
   }
 
+  getPairs() {
+    const _pairs = [];
+
+    for (const [key, value] of this.value) {
+      _pairs.push([key, value]);
+    }
+
+    return _pairs;
+  }
+
   requestViewUpdate() {
     for (const bindingMap of this._listBindings) {
       bindingMap[0].appendChild(
@@ -230,13 +240,20 @@ export class ListState extends State {
 
     this.requestViewUpdate();
   }
-
   set(key, value) {
     this.value.set(key, value);
+  }
+  push(...values) {
+    for (const value of values) {
+      this.add(value);
+    }
   }
 
   get(key) {
     this._value.get(key);
+  }
+  getAt(index) {
+    this.get(this.getPairs()[index][0]);
   }
 
   remove(key) {
@@ -259,9 +276,12 @@ export class ListState extends State {
       this._idIncrement = 0;
     }
   }
+  removeAt(index) {
+    this.remove(this.getPairs()[index][0]);
+  }
 
   pop() {
-    this.remove(this._idIncrement);
+    this.remove(this.getPairs()[this.getPairs().length - 1][0]);
   }
 
   bindEach(each = (value, key) => value) {
@@ -271,6 +291,14 @@ export class ListState extends State {
 export const listOf = (...values) => {
   return new ListState(...values);
 };
+
+export const mapOf = (obj) => {
+  const _map = {};
+  for (const key in obj) {
+    _map[key] = valueOf(obj[key]);
+  }
+  return _map;
+}
 
 export const $ = (tag = "div", props = {}, children = []) => {
   const compiledTag = tag.split(".");
