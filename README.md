@@ -2,6 +2,16 @@
 # v
 A simple and lightweight library for Vanilla JavaScript, allowing you to create a reactive UI.
 
+# Features
+- ♾️ Declarative syntax ( 😎 **_functional components!_** )
+- ⚛️ Reactive state management based on nice Binding ( **_valueOf_** )
+- 👌 Powerful reactive lists ( **_listOf_** based on [**Map**](https://github.com/hoverek-yt/v/wiki/function-listOf) )
+- ✅ _**No VDOM!**_ - less memory usage
+- 💅 Bindable styles:
+```js
+style: { color: myValue.bind() } // changing myValue will affect the css property 'color'
+```
+
 # Basics
 
 Simple counter:
@@ -77,4 +87,8 @@ function Counter() {
 }
 ```
 
-Future versions will fix bugs and improve performance.
+# Todo
+- ❔ SVG Elements support
+- Maybe more...
+
+_Future versions will fix bugs and improve performance_
