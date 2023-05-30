@@ -11,6 +11,7 @@ A simple and lightweight library for Vanilla JavaScript, allowing you to create 
 ```js
 style: { color: myValue.bind() } // changing myValue will affect the css property 'color'
 ```
+- 🟦🟡🔶 SVG Support
 
 # Basics
 
