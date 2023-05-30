@@ -1,3 +1,95 @@
+export const svgElements = [
+  "a",
+  "altGlyph",
+  "altGlyphDef",
+  "altGlyphItem",
+  "animate",
+  "animateColor",
+  "animateMotion",
+  "animateTransform",
+  "circle",
+  "clipPath",
+  "color-profile",
+  "cursor",
+  "defs",
+  "desc",
+  "discard",
+  "ellipse",
+  "feBlend",
+  "feColorMatrix",
+  "feComponentTransfer",
+  "feComposite",
+  "feConvolveMatrix",
+  "feDiffuseLighting",
+  "feDisplacementMap",
+  "feDistantLight",
+  "feDropShadow",
+  "feFlood",
+  "feFuncA",
+  "feFuncB",
+  "feFuncG",
+  "feFuncR",
+  "feGaussianBlur",
+  "feImage",
+  "feMerge",
+  "feMergeNode",
+  "feMorphology",
+  "feOffset",
+  "fePointLight",
+  "feSpecularLighting",
+  "feSpotLight",
+  "feTile",
+  "feTurbulence",
+  "filter",
+  "font",
+  "font-face",
+  "font-face-format",
+  "font-face-name",
+  "font-face-src",
+  "font-face-uri",
+  "foreignObject",
+  "g",
+  "glyph",
+  "glyphRef",
+  "hatch",
+  "hatchpath",
+  "hkern",
+  "image",
+  "line",
+  "linearGradient",
+  "marker",
+  "mask",
+  "mesh",
+  "meshgradient",
+  "meshpatch",
+  "meshrow",
+  "metadata",
+  "missing-glyph",
+  "mpath",
+  "path",
+  "pattern",
+  "polygon",
+  "polyline",
+  "radialGradient",
+  "rect",
+  "set",
+  "solidcolor",
+  "stop",
+  "style",
+  "svg",
+  "switch",
+  "symbol",
+  "text",
+  "textPath",
+  "title",
+  "tref",
+  "tspan",
+  "unknown",
+  "use",
+  "view",
+  "vkern",
+];
+
 export class Binding {
   /**
    *
@@ -40,7 +132,11 @@ export class Binding {
       const styleProp = this._prop.split(".");
       element[styleProp[0]][styleProp[1]] = value;
     } else {
-      element[this._prop] = this._setter(value);
+      if (element instanceof SVGElement) {
+        element.setAttribute(this._prop, value);
+      } else {
+        element[this._prop] = this._setter(value);
+      }
     }
   }
 }
@@ -204,7 +300,12 @@ export const $ = (tag = "div", props = {}, children = []) => {
     delete props.className;
   }
 
-  const el = document.createElement(tagName);
+  let el = null;
+  if (!svgElements.includes(tagName)) {
+    el = document.createElement(tagName);
+  } else if (svgElements.includes(tagName)) {
+    el = document.createElementNS("http://www.w3.org/2000/svg", tagName);
+  }
 
   // property value binding
   for (const prop in props) {
@@ -224,8 +325,12 @@ export const $ = (tag = "div", props = {}, children = []) => {
         }
       }
     } else if (!(props[prop] instanceof Binding)) {
-      // normal property
-      el[prop] = props[prop];
+      if (el instanceof SVGElement) {
+        el.setAttribute(prop, props[prop]);
+      } else {
+        // normal element property
+        el[prop] = props[prop];
+      }
     }
   }
 
@@ -237,6 +342,8 @@ export const $ = (tag = "div", props = {}, children = []) => {
   } else {
     for (const child of children) {
       if (child instanceof HTMLElement) {
+        el.appendChild(child);
+      } else if (child instanceof SVGElement) {
         el.appendChild(child);
       } else {
         const tn = document.createTextNode(child);
