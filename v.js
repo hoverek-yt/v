@@ -132,7 +132,7 @@ export class Binding {
       const styleProp = this._prop.split(".");
       element[styleProp[0]][styleProp[1]] = value;
     } else {
-      if (element instanceof SVGElement) {
+      if (element instanceof SVGElement && !(this._prop.startsWith('on'))) {
         element.setAttribute(this._prop, value);
       } else {
         element[this._prop] = this._setter(value);
@@ -325,7 +325,7 @@ export const $ = (tag = "div", props = {}, children = []) => {
         }
       }
     } else if (!(props[prop] instanceof Binding)) {
-      if (el instanceof SVGElement) {
+      if (el instanceof SVGElement && !(prop.startsWith('on'))) {
         el.setAttribute(prop, props[prop]);
       } else {
         // normal element property
