@@ -87,8 +87,37 @@ function Counter() {
 }
 ```
 
+Svg:
+```js
+import { $, valueOf } from "./v.js";
+
+function Counter() {
+  const counter = valueOf(0);
+  const color = valueOf("red");
+
+  return $("div", {}, [
+    $("button", {
+      style: {
+        color: color.bind(),
+      },
+      textContent: "Add +1",
+      onclick() {
+        ++counter.value;
+
+        color.value = color.value === "red" ? "blue" : "red";
+      },
+    }),
+    $("p", {
+      textContent: counter.bind(),
+    }),
+    $("svg", {}, [$("circle", { r: 50, style: { fill: color.bind() } })]),
+  ]);
+}
+document.body.appendChild(Counter());
+```
+
 # Todo
-- ❔ SVG Elements support
+- ✅ SVG Elements support
 - Maybe more...
 
 _Future versions will fix bugs and improve performance_
